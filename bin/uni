@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+const figlet = require('figlet');
+const Printer = require('@darkobits/lolcatjs');
+const program = require('commander')
+const inquirer = require('inquirer')
+const chalk = require('chalk')
+const ora = require('ora')
+const shell = require('shelljs')
+const publicPath = shell.pwd().stdout
+
+let tipText = figlet.textSync('LF-CLI')
+let text = Printer.fromString(tipText)
+
+program.version(text, "-v,--version")
+program.option("init", "^ 初始化项目")
+const bindHandle = {
+    init() {
+        console.log('创建项目');
+        inquirer.prompt({
+            type: "list",
+            name: "template",
+            message: "选择模板",
+            choices: ["default"]
+        }).then(answer => {
+            const spinner = ora('正在创建项目... ...')
+            spinner.start()
+        })
+    }
+}
+program.usage("<cmd> [env]")
+    .arguments("<cmd> [env]")
+    .cation(function(cmd, otherParms) {
+        const handler = bindHandle[cmd]
+        if (handler) {
+            handler(otherParms);
+        } else {
+            console.log(chalk.red("err: ${cmd} param is wrong"));
+        }
+    })
+
+program.parse(process.argv)

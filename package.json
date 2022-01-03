@@ -1,0 +1,26 @@
+{
+  "name": "lf-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "uni-cli": "bin/uni"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@darkobits/lolcatjs": "^3.1.5",
+    "chalk": "^5.0.0",
+    "commander": "^8.3.0",
+    "figlet": "^1.5.2",
+    "inquirer": "^8.2.0",
+    "lolcatjs": "^2.4.1",
+    "ora": "^6.0.1",
+    "shelljs": "^0.8.4",
+    "spinner": "^0.3.4"
+  }
+}
