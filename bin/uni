@@ -7,15 +7,21 @@ const inquirer = require('inquirer')
 const chalk = require('chalk')
 const ora = require('ora')
 const shell = require('shelljs')
+const download = require('download-git-repo')
 const publicPath = shell.pwd().stdout
+const package = require('./../package.json')
 
-let tipText = figlet.textSync('LF-CLI')
+let tipText = figlet.textSync('V' + package.version)
 let text = Printer.fromString(tipText)
 
+let templateList = {
+    default: "direct:https://github.com/meta-na9bmkxnhzfagrp7h4/uni-bi-template.git"
+}
+
 program.version(text, "-v,--version")
-program.option("init", "^ 初始化项目")
+program.option("create", "<projectName> 创建项目")
 const bindHandle = {
-    init() {
+    create(otherParms) {
         console.log('创建项目');
         inquirer.prompt({
             type: "list",
@@ -25,12 +31,29 @@ const bindHandle = {
         }).then(answer => {
             const spinner = ora('正在创建项目... ...')
             spinner.start()
+            let dirName = otherParms || 'uniProject'
+            const _projectPath = publicPath + '/' + dirName
+            shell.cd(publicPath)
+            shell.rm("rf", _projectPath)
+            shell.mkdir(_projectPath)
+            download(templateList[answer.template], _projectPath, { clone: true }, error => {
+                spinner.stop()
+                if (error) {
+                    console.log(chalk.red('初始化项目失败'));
+                    console.error(error);
+                }else {
+                    shell.sed("-i", "load-calculate", dirName, _projectPath + "/package.json")
+                }
+            })
         })
     }
 }
 program.usage("<cmd> [env]")
     .arguments("<cmd> [env]")
-    .cation(function(cmd, otherParms) {
+    .action(function(cmd, otherParms) {
+        if (!cmd) {
+            return
+        }
         const handler = bindHandle[cmd]
         if (handler) {
             handler(otherParms);
