@@ -1,10 +1,10 @@
 {
-  "name": "uni-cli",
-  "version": "1.0.0",
+  "name": "unic-cli",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
-    "uni-cli": "bin/uni"
+    "unic-cli": "bin/unic"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

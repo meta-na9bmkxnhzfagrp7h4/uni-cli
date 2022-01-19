@@ -9,7 +9,9 @@ const ora = require('ora')
 const shell = require('shelljs')
 const download = require('download-git-repo')
 const publicPath = shell.pwd().stdout
-const package = require('./../package.json')
+const package = require('../package.json')
+const fs = require('fs')
+const addComponent = require('./component/addComponent')
 
 let tipText = figlet.textSync('V' + package.version)
 let text = Printer.fromString(tipText)
@@ -34,7 +36,7 @@ const bindHandle = {
             let dirName = otherParms || 'uniProject'
             const _projectPath = publicPath + '/' + dirName
             shell.cd(publicPath)
-            shell.rm("rf", _projectPath)
+            shell.rm("-rf", _projectPath)
             shell.mkdir(_projectPath)
             download(templateList[answer.template], _projectPath, { clone: true }, error => {
                 spinner.stop()
@@ -46,6 +48,12 @@ const bindHandle = {
                 }
             })
         })
+    },
+    addComponent(otherParms) {
+        if (otherParms) {
+            let allPath = publicPath + '/' + otherParms
+            addComponent.addComponent(allPath)
+        }
     }
 }
 program.usage("<cmd> [env]")
