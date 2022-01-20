@@ -9,7 +9,7 @@ function writeVue(fileName) {
         "</template>",
         "<script lang=\"ts\">",
         "\timport {reactive, toRefs, defineComponent} from 'vue'",
-        `\timport \'${fileName}.less\'`,
+        `\timport \'.\/${fileName}.less\'`,
         "\texport default defineComponent({",
         "\t\tname: 'App',",
         "\t\tsetup() {",
