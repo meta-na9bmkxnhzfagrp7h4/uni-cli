@@ -57,7 +57,7 @@ const bindHandle = {
         }
     },
     addComponent2js(otherParms) {
-        if (oteherParams) {
+        if (otherParms) {
             let allPath = publicPath + '/' + otherParms
             addComponent2js.addComponent2js(allPath)
         }
