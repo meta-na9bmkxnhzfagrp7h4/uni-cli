@@ -12,6 +12,7 @@ const publicPath = shell.pwd().stdout
 const package = require('../package.json')
 const fs = require('fs')
 const addComponent = require('./component/addComponent')
+const addComponent2js = require('./component/addComponent2js')
 
 let tipText = figlet.textSync('V' + package.version)
 let text = Printer.fromString(tipText)
@@ -53,6 +54,12 @@ const bindHandle = {
         if (otherParms) {
             let allPath = publicPath + '/' + otherParms
             addComponent.addComponent(allPath)
+        }
+    },
+    addComponent2js(otherParms) {
+        if (oteherParams) {
+            let allPath = publicPath + '/' + otherParms
+            addComponent2js.addComponent2js(allPath)
         }
     }
 }
