@@ -16,7 +16,7 @@ function writeVue(fileName) {
     "\t\t\t}",
     "",
     "\t\t}",
-    "\t})",
+    "\t}",
     "</script>",
   ];
 
@@ -58,7 +58,11 @@ function writeTs(fileName) {
 }
 
 function toLine(name) {
-  return name.replace(/([A-Z])/g, "_$1").toLowerCase();
+  let names = name.replace(/([A-Z])/g, "_$1").toLowerCase();
+  if (names.slice(0, 1) === "_") {
+    names = names.slice(1, names.length - 1);
+  }
+  return names;
 }
 
 module.exports = {
